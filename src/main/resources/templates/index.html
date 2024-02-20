@@ -23,17 +23,15 @@
 	<p>Description: [(${description})]</p>
 	<p>Description: [(${description})]</p>
 	<p th:text="${title}"></p>
-	<div id="app">
-		<v-app>
-			<v-btn> Button </v-btn>
-			<v-container>
-				<v-alert text="teste de alerta"></v-alert>
-				<v-btn density="compact">
-					Button
-				</v-btn>
-			</v-container>
-		</v-app>
-	</div>
+	<div id="app"> <v-app>
+		<v-container>
+		<v-btn> Button </v-btn>
+			<v-alert text="teste de alerta"></v-alert>
+			<v-btn density="compact">
+				Button
+			</v-btn>
+		</v-container>
+	</v-app> </div>
 	<script type="text/javascript" th:src="@{/static/app.js}"></script>
 </body>
 
