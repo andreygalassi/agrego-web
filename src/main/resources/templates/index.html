@@ -3,36 +3,50 @@
 
 <head>
 	<meta charset="UTF-8">
+	<link href="/nebula.png" rel="icon" type="image/png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" th:href="@{/webjars/vuetify/3.4.6/dist/vuetify.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/mdi__font/7.3.67/css/materialdesignicons.min.css}" />
 	<link rel="stylesheet" th:href="@{/webjars/material-design-icons/4.0.0/material-icons.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/vuetify/3.4.6/dist/vuetify.min.css}" />
 
+<!--	<script type="text/javascript" th:src="@{/webjars/mdi__font/7.3.67/scripts/verify.js}"></script>-->
 	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.global.prod.js}"></script>
 	<!--	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.esm-bundler.js}"></script>-->
 	<script type="text/javascript" th:src="@{/webjars/axios/1.6.5/dist/axios.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/vuetify/3.4.6/dist/vuetify.min.js}"></script>
 
-	<link rel="stylesheet" th:href="@{/static/appBase.css}" />
-	<meta charset="UTF-8">
-	<title>Inlining example</title>
+	<link rel="stylesheet" th:href="@{/static/css/appBase.css}" />
+	<title>AGREGO - WEB</title>
 </head>
 
 <body>
-	<p>Title of tutorial: [[${title}]]</p>
-	<p>Description: [(${description})]</p>
-	<p>Description: [(${description})]</p>
-	<p th:text="${title}"></p>
-	<div id="app"> <v-app>
-		<v-container>
-		<v-btn> Button </v-btn>
-			<v-alert text="teste de alerta"></v-alert>
-			<v-btn density="compact">
-				Button
-			</v-btn>
-		</v-container>
-	</v-app> </div>
-	<script type="text/javascript" th:src="@{/static/app.js}"></script>
+<!--	<p>Title of tutorial: [[${title}]]</p>-->
+<!--	<p>Description: [(${description})]</p>-->
+<!--	<p>Description: [(${description})]</p>-->
+<!--	<p th:text="${title}"></p>-->
+	<div id="app"> 
+		<v-app>
+			<v-app-bar color="surface-variant" title="AGREGO WEB"></v-app-bar>
+<!--			<v-main class="d-flex" style="min-height: 300px; background-color: blue;">-->
+			<v-main style="background-color: blue;">
+				<v-alert closable text="teste de alerta2" type="warning"></v-alert>
+				<v-container>
+					<v-icon icon="$vuetify"></v-icon>
+					<v-icon icon="mdi-alert-circle"></v-icon>
+					<v-btn >Button</v-btn>
+				</v-container>
+			</v-main>
+<!--			<v-footer class="d-flex flex-column" app="true">-->
+			<v-footer class="px-0 py-0" app="true">
+<!--				<div class="px-4 py-2 bg-black text-center w-100">-->
+				<div class="bg-black text-center w-100">
+					{{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+				</div>
+			</v-footer>
+		</v-app> 
+	</div>
+	<script type="text/javascript" th:src="@{/static/js/app.js}"></script>
 </body>
 
 </html>

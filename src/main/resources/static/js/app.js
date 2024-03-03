@@ -1,4 +1,7 @@
 const app = Vue.createApp({
+	mounted() {
+		console.log(`The initial count is ${this.count}.`)
+	},
 	data() {
 		return {
 			count: 0
@@ -9,15 +12,17 @@ const app = Vue.createApp({
 			this.count++
 		}
 	},
-	mounted() {
-		console.log(`The initial count is ${this.count}.`)
-	}
 });
 
 const vuetify = Vuetify.createVuetify({
-//	theme: {
-//		defaultTheme: 'light',
-//	},
+	defaults: {
+		global: {
+			density: 'compact',
+		},
+	},
+	theme: {
+		defaultTheme: 'light',
+	},
 })
 
 app.use(vuetify);
