@@ -36,6 +36,7 @@ public class WebConfig extends SpringBootServletInitializer implements WebApplic
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("", "/index");
 		registry.addRedirectViewController("/", "/index");
+		registry.addViewController("/login").setViewName("login");
 	}
 	
 	@Override

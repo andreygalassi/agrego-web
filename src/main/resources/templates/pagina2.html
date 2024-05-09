@@ -30,7 +30,7 @@
 			<v-app-bar color="surface-variant" title="AGREGO WEB" icon></v-app-bar>
 <!--			<v-main class="d-flex" style="min-height: 300px; background-color: blue;">-->
 			<v-main>
-<!--				<v-alert closable text="teste de alerta2" type="warning"></v-alert>-->
+				<v-alert closable text="pagina2" type="warning"></v-alert>
 				<v-container fluid>
 					<v-icon icon="$vuetify"></v-icon>
 					<v-icon icon="mdi-alert-circle"></v-icon>
@@ -41,10 +41,7 @@
 			<v-footer class="px-0 py-0" app="true">
 <!--				<div class="px-4 py-2 bg-black text-center w-100">-->
 				<div class="bg-black text-center w-100">
-					{{ new Date().getFullYear() }} — <strong>Vuetify2</strong>
-					<form th:action="@{/logout}" method="post">
-						<button type="submit">Logout</button>
-					</form>
+					{{ new Date().getFullYear() }} — <strong>Vuetify</strong>
 				</div>
 			</v-footer>
 		</v-app> 

@@ -1,9 +1,1 @@
-const app = createApp()
 
-const vuetify = createVuetify({
-	el: "#app",
-})
-
-app.use(vuetify)
-
-console.log('teste123');
