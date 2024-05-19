@@ -6,20 +6,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity // (debug = true)
 public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
+//			.csrf().disable()
 			.authorizeHttpRequests((requests) -> requests
 //				.requestMatchers("/", "/home").permitAll()
 				.requestMatchers("/login").anonymous()
@@ -58,8 +58,19 @@ public class SecurityConfig {
 				.password("password")
 				.roles("USER")
 				.build();
-		return new InMemoryUserDetailsManager(user);
+
+		UserDetails admin = User.withUsername("admin")
+//				.password(passwordEncoder().encode("adminPass"))
+				.password("password")
+				.roles("ADMIN")
+				.build();
+		return new InMemoryUserDetailsManager(user,admin);
 	}
 	// @formatter:on
+	
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 
 }

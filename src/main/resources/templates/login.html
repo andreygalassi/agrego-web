@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-<!--	<link href="/nebula.png" rel="icon" type="image/png" />-->
+	<!--	<link href="/nebula.png" rel="icon" type="image/png" />-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" th:href="@{/webjars/mdi__font/7.3.67/css/materialdesignicons.min.css}" />
@@ -21,33 +21,54 @@
 </head>
 
 <body>
-		<div id="app"> 
-			<v-app>
-				<v-app-bar color="surface-variant" title="AGREGO WEB" icon></v-app-bar>
-				<v-main>
-<!--					<v-alert closable text="teste de alerta2" type="warning"></v-alert>-->
-					<v-container fluid>
-						<div th:if="${param.error}">
-							Invalid username and password.
-						</div>
-						<div th:if="${param.logout}">
-							You have been logged out2.
-						</div>
-						<form th:action="@{/login}" method="post">
-							<div><label> User Name : <input type="text" name="username" value="user"/></label></div>
-							<div><label> Password: <input type="password" name="password" value="password"/></label></div>
-							<div><input type="submit" value="Sign In" /></div>
-						</form>
-					</v-container>
-				</v-main>
-				<v-footer class="px-0 py-0" app="true">
-					<div class="bg-black text-center w-100">
-						{{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+	<div id="app">
+		<v-app>
+			<v-app-bar color="surface-variant" title="AGREGO WEB" icon></v-app-bar>
+			<v-main>
+				<form th:action="@{/login}" method="post">
+					<div>
+						<v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
+							<div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
+	
+							<v-text-field density="compact" placeholder="Usuario" prepend-inner-icon="mdi-email-outline" variant="outlined" value="user" name="username"></v-text-field>
+	
+							<div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+								Senha
+<!--								<a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">Forgot login password?</a>-->
+							</div>
+	
+							<v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" 
+							density="compact" placeholder="Senha" prepend-inner-icon="mdi-lock-outline" variant="outlined" 
+							@click:append-inner="visible = !visible" value="password" name="password"></v-text-field>
+	
+							<v-card class="mb-12" color="surface-variant" variant="tonal">
+								<v-card-text class="text-medium-emphasis text-caption">
+									Faça o login
+								</v-card-text>
+							</v-card>
+	
+							<v-btn class="mb-8" color="blue" size="large" variant="tonal" block type="submit">
+								Log In
+							</v-btn>
+
+							<v-card-text class="text-center">
+								<a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer"
+									target="_blank">
+									Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+								</a>
+							</v-card-text>
+						</v-card>
 					</div>
-				</v-footer>
-			</v-app> 
-		</div>
-		<script type="text/javascript" th:src="@{/static/js/login.js}"></script>
+				</form>
+			</v-main>
+			<v-footer class="px-0 py-0" app="true">
+				<div class="bg-black text-center w-100">
+					{{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+				</div>
+			</v-footer>
+		</v-app>
+	</div>
+	<script type="text/javascript" th:src="@{/static/js/login.js}"></script>
 </body>
 
 </html>
