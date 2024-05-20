@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.agrego.model.Livro;
 import br.com.agrego.service.LivroService;
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class LivroEndpoint {

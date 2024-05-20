@@ -21,6 +21,8 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
+
 @Configuration
 @EnableWebMvc
 public class WebConfig extends SpringBootServletInitializer implements WebApplicationInitializer, WebMvcConfigurer, ApplicationContextAware {
@@ -63,7 +65,7 @@ public class WebConfig extends SpringBootServletInitializer implements WebApplic
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
-//		templateEngine.addDialect(new LayoutDialect());
+		templateEngine.addDialect(new LayoutDialect());
 //		templateEngine.addDialect(new DataAttributeDialect());
 		templateEngine.setEnableSpringELCompiler(true);
 		return templateEngine;

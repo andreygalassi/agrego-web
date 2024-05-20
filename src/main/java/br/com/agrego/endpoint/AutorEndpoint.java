@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.agrego.model.Autor;
 import br.com.agrego.service.AutorService;
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class AutorEndpoint {
