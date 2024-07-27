@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
-<th:block layout:replace="_config/cabecalho" />
+<!--<th:block layout:replace="_config/cabecalho" />-->
+<div th:replace="~{_config/cabecalho}" />
 <body>
-	<div id="corpo">
-		<th:block layout:fragment="conteudo" />
+	<div id="app"> 
+		<v-app>
+			<div th:replace="~{_config/menu}" />
+			<div id="corpo">
+				<th:block layout:fragment="conteudo" />
+			</div>
+			
+			<th:block layout:replace="_config/rodape" />
+		</v-app> 
 	</div>
-	
-	<th:block layout:replace="_config/rodape" />
 	<th:block layout:fragment="scripts" />
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -25,7 +26,8 @@ import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
-public class WebConfig extends SpringBootServletInitializer implements WebApplicationInitializer, WebMvcConfigurer, ApplicationContextAware {
+public class WebConfig extends SpringBootServletInitializer
+		implements WebApplicationInitializer, WebMvcConfigurer, ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
@@ -33,14 +35,14 @@ public class WebConfig extends SpringBootServletInitializer implements WebApplic
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
-	
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("", "/index");
 		registry.addRedirectViewController("/", "/index");
 		registry.addViewController("/login").setViewName("login");
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
@@ -84,5 +86,10 @@ public class WebConfig extends SpringBootServletInitializer implements WebApplic
 		CookieLocaleResolver localeResolver = new CookieLocaleResolver();
 		localeResolver.setDefaultLocale(new Locale("pt", "BR"));
 		return localeResolver;
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

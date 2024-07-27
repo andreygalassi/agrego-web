@@ -1,74 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" layout:decorate="_config/corpo">
 
-<head>
-	<meta charset="UTF-8">
-	<!--	<link href="/nebula.png" rel="icon" type="image/png" />-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block layout:fragment="conteudo">
+	<v-main>
+		<v-container fluid>
+			<form th:action="@{/login}" method="post">
+				<div>
+					<v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
+						<div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
 
-	<link rel="stylesheet" th:href="@{/webjars/mdi__font/7.3.67/css/materialdesignicons.min.css}" />
-	<link rel="stylesheet" th:href="@{/webjars/material-design-icons/4.0.0/material-icons.css}" />
-	<link rel="stylesheet" th:href="@{/webjars/vuetify/3.4.6/dist/vuetify.min.css}" />
+						<v-text-field density="compact" placeholder="Usuario" prepend-inner-icon="mdi-email-outline" variant="outlined" value="user" name="username"></v-text-field>
 
-	<!--	<script type="text/javascript" th:src="@{/webjars/mdi__font/7.3.67/scripts/verify.js}"></script>-->
-	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.global.prod.js}"></script>
-	<!--	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.esm-bundler.js}"></script>-->
-	<script type="text/javascript" th:src="@{/webjars/axios/1.6.5/dist/axios.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/vuetify/3.4.6/dist/vuetify.min.js}"></script>
+						<div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+							Senha
+						</div>
 
-	<link rel="stylesheet" th:href="@{/static/css/appBase.css}" />
-	<title>AGREGO - WEB</title>
-</head>
+						<v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" 
+						density="compact" placeholder="Senha" prepend-inner-icon="mdi-lock-outline" variant="outlined" 
+						@click:append-inner="visible = !visible" value="password" name="password"></v-text-field>
 
-<body>
-	<div id="app">
-		<v-app>
-			<v-app-bar color="surface-variant" title="AGREGO WEB" icon></v-app-bar>
-			<v-main>
-				<form th:action="@{/login}" method="post">
-					<div>
-						<v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-							<div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
-	
-							<v-text-field density="compact" placeholder="Usuario" prepend-inner-icon="mdi-email-outline" variant="outlined" value="user" name="username"></v-text-field>
-	
-							<div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-								Senha
-<!--								<a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">Forgot login password?</a>-->
-							</div>
-	
-							<v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" 
-							density="compact" placeholder="Senha" prepend-inner-icon="mdi-lock-outline" variant="outlined" 
-							@click:append-inner="visible = !visible" value="password" name="password"></v-text-field>
-	
-							<v-card class="mb-12" color="surface-variant" variant="tonal">
-								<v-card-text class="text-medium-emphasis text-caption">
-									Faça o login
-								</v-card-text>
-							</v-card>
-	
-							<v-btn class="mb-8" color="blue" size="large" variant="tonal" block type="submit">
-								Log In
-							</v-btn>
-
-							<v-card-text class="text-center">
-								<a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer"
-									target="_blank">
-									Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-								</a>
+						<v-card class="mb-12" color="surface-variant" variant="tonal">
+							<v-card-text class="text-medium-emphasis text-caption">
+								Faça o login
 							</v-card-text>
 						</v-card>
-					</div>
-				</form>
-			</v-main>
-			<v-footer class="px-0 py-0" app="true">
-				<div class="bg-black text-center w-100">
-					{{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+
+						<v-btn class="mb-8" color="blue" size="large" variant="tonal" block type="submit">
+							Log In
+						</v-btn>
+
+						<v-card-text class="text-center">
+							<a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer"
+								target="_blank">
+								Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+							</a>
+						</v-card-text>
+					</v-card>
 				</div>
-			</v-footer>
-		</v-app>
-	</div>
+			</form>
+		</v-container>
+	</v-main>
+</th:block>
+
+<th:block layout:fragment="scripts">
 	<script type="text/javascript" th:src="@{/static/js/login.js}"></script>
-</body>
+</th:block>
 
 </html>

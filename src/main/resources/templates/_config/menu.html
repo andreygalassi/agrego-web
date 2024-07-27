@@ -1,0 +1,23 @@
+<menu xmlns:th="http://www.thymeleaf.org">
+	<v-toolbar density="compact" color="surface-variant">
+		<v-toolbar-title class="" style="max-width: 150px">AGREGO WEB</v-toolbar-title>
+		<v-toolbar-items>
+			
+			<v-menu>
+				<template v-slot:activator="{ props }">
+					<v-btn v-bind="props"> Menu </v-btn>
+				</template>
+				<v-list>
+					<v-list-item href="/autor/consultar"><v-list-item-title>Autor</v-list-item-title></v-list-item>
+					<v-list-item href="/livro/consultar"><v-list-item-title>Livro</v-list-item-title></v-list-item>
+					<v-list-item href="/login">Login</v-list-item>
+				</v-list>
+			</v-menu>
+	
+		</v-toolbar-items>
+		<v-spacer></v-spacer>
+		<form th:action="@{/logout}" method="post">
+			<v-btn mr-5 type="submit">Logout</v-btn>
+		</form>
+	</v-toolbar>
+</menu>

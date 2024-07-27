@@ -11,8 +11,7 @@ public class IndexController {
 	@GetMapping("/index")
 	public ModelAndView helloWorld(Model model) {
 		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("title", "index");
-		mv.addObject("description", "Thymeleaf tutorial");
 		return mv;
 	}
+
 }

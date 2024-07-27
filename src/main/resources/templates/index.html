@@ -1,65 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" layout:decorate="_config/corpo">
 
-<head>
-	<meta charset="UTF-8">
-<!--	<link href="/nebula.png" rel="icon" type="image/png" />-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--<div th:fragment="conteudo">-->
+<th:block layout:fragment="conteudo">
+	<v-main>
+		<v-container fluid>
+			<v-icon icon="$vuetify"></v-icon>
+			<v-icon icon="mdi-alert-circle"></v-icon>
+			<v-btn >Button2</v-btn>
+		</v-container>
+	</v-main>
+</th:block>
+<!--</div>-->
 
-	<link rel="stylesheet" th:href="@{/webjars/mdi__font/7.3.67/css/materialdesignicons.min.css}" />
-	<link rel="stylesheet" th:href="@{/webjars/material-design-icons/4.0.0/material-icons.css}" />
-	<link rel="stylesheet" th:href="@{/webjars/vuetify/3.4.6/dist/vuetify.min.css}" />
-
-<!--	<script type="text/javascript" th:src="@{/webjars/mdi__font/7.3.67/scripts/verify.js}"></script>-->
-	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.global.prod.js}"></script>
-	<!--	<script type="text/javascript" th:src="@{/webjars/vue/3.4.15/dist/vue.esm-bundler.js}"></script>-->
-	<script type="text/javascript" th:src="@{/webjars/axios/1.6.5/dist/axios.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/vuetify/3.4.6/dist/vuetify.min.js}"></script>
-
-	<link rel="stylesheet" th:href="@{/static/css/appBase.css}" />
-	<title>AGREGO - WEB</title>
-</head>
-
-<body>
-<!--	<p>Title of tutorial: [[${title}]]</p>-->
-<!--	<p>Description: [(${description})]</p>-->
-<!--	<p>Description: [(${description})]</p>-->
-<!--	<p th:text="${title}"></p>-->
-	<div id="app"> 
-		<v-app>
-			<v-toolbar density="compact" color="surface-variant">
-				<v-toolbar-title class="" style="max-width: 150px">AGREGO WEB</v-toolbar-title>
-				<v-toolbar-items>
-					<v-btn href="/login">Login</v-btn>
-				</v-toolbar-items>
-				<v-spacer></v-spacer>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">Logout</button>
-				</form>
-			</v-toolbar>
-<!--			<v-app-bar color="surface-variant" title="AGREGO WEB" icon></v-app-bar>-->
-<!--			<v-main class="d-flex" style="min-height: 300px; background-color: blue;">-->
-			<v-main>
-<!--				<v-alert closable text="teste de alerta2" type="warning"></v-alert>-->
-				<v-container fluid>
-					<v-icon icon="$vuetify"></v-icon>
-					<v-icon icon="mdi-alert-circle"></v-icon>
-					<v-btn >Button</v-btn>
-				</v-container>
-			</v-main>
-<!--			<v-footer class="d-flex flex-column" app="true">-->
-			<v-footer class="px-0 py-0" app="true">
-<!--				<div class="px-4 py-2 bg-black text-center w-100">-->
-				<div class="bg-black text-center w-100">
-					{{ new Date().getFullYear() }} — <strong>Vuetify2</strong>
-					<form th:action="@{/logout}" method="post">
-						<button type="submit">Logout</button>
-					</form>
-				</div>
-			</v-footer>
-		</v-app> 
-	</div>
+<th:block layout:fragment="scripts">
 	<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
-</body>
+</th:block>
 
 </html>
