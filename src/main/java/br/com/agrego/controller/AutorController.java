@@ -12,7 +12,7 @@ public class AutorController {
 
 	@GetMapping("/consultar")
 	public ModelAndView helloWorld(Model model) {
-		ModelAndView mv = new ModelAndView("autor/index");
+		ModelAndView mv = new ModelAndView("autor/autor");
 		mv.addObject("titulo", "Autor");
 		return mv;
 	}

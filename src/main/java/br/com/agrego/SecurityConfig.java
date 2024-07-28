@@ -21,6 +21,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests((requests) -> requests
 //				.requestMatchers("/", "/home").permitAll()
 				.requestMatchers("/login").anonymous()
+				.requestMatchers("/layout").permitAll()
 //				.requestMatchers("/").permitAll()
 				.requestMatchers("/").authenticated()
 				.requestMatchers("/static/**").permitAll()

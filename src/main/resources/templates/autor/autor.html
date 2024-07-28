@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" layout:decorate="~{_config/corpo}">
+
+<th:block layout:fragment="conteudo">
+	<v-main>
+		<v-container fluid>
+			<h1 th:text="${titulo}">Titulo</h1>
+		</v-container>
+		
+		<v-container fluid color="primary">
+			<v-row>
+				<v-col cols="2"><v-text-field density="compact" label="Id" placeholder="Id" variant="outlined"/></v-col>
+				<v-col cols="2"><v-text-field density="compact" label="Nome" placeholder="Nome" variant="outlined"/></v-col>
+			</v-row>
+		</v-container>
+		<v-container class="ml-1" >
+			<v-btn class="mr-2" color="primary">Submit1</v-btn>
+			<v-btn>Submit1</v-btn>
+<!--			<v-col><v-btn >Submit1</v-btn><v-btn >Submit1</v-btn></v-col>-->
+<!--			<v-row >-->
+<!--			<v-col><v-btn >Submit1</v-btn><v-btn >Submit1</v-btn></v-col>-->
+<!--			<v-col><v-btn class="mt-2" block>Submit2</v-btn></v-col>-->
+<!--			<v-col><v-btn class="mt-2" block>Submit3</v-btn></v-col>-->
+<!--			</v-row>-->
+		</v-container>
+	</v-main>
+</th:block>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript" th:src="@{/static/js/autor.js}"></script>
+</th:block>
+
+</html>
