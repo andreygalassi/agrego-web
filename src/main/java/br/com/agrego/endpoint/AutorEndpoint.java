@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrego.model.Autor;
 import br.com.agrego.service.AutorService;
+import jakarta.annotation.security.RolesAllowed;
 
 //@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
+@RolesAllowed("AUTOR")
 public class AutorEndpoint {
 	
 	@Autowired
 	AutorService autorService;
 
+	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping("/autor")
 	public ResponseEntity<List<Autor>> findAll() {
 		try {
@@ -42,6 +45,7 @@ public class AutorEndpoint {
 		}
 	}
 
+	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping("/autor/{id}")
 	public ResponseEntity<Autor> getById(@PathVariable("id") long id) {
 		Optional<Autor> autor = autorService.findById(id);
@@ -53,6 +57,7 @@ public class AutorEndpoint {
 		}
 	}
 
+	@RolesAllowed("AUTOR_CRIAR")
 	@PostMapping("/autor")
 	public ResponseEntity<Autor> create(@RequestBody Autor autor) {
 		try {
@@ -63,6 +68,7 @@ public class AutorEndpoint {
 		}
 	}
 
+	@RolesAllowed("AUTOR_ATUALIZAR")
 	@PutMapping("/autor/{id}")
 	public ResponseEntity<Autor> update(@PathVariable("id") long id, @RequestBody Autor autor) {
 		Optional<Autor> oBean = autorService.findById(id);
@@ -75,6 +81,7 @@ public class AutorEndpoint {
 		}
 	}
 
+	@RolesAllowed("AUTOR_DELETAR")
 	@DeleteMapping("/autor/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
 		try {
@@ -85,6 +92,7 @@ public class AutorEndpoint {
 		}
 	}
 
+	@RolesAllowed("AUTOR_DELETAR")
 	@DeleteMapping("/autor")
 	public ResponseEntity<HttpStatus> deleteAll() {
 		try {
