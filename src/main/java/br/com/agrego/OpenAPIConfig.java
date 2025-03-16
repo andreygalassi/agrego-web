@@ -10,7 +10,7 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 @OpenAPI31
-public class SwaggerConfig {
+public class OpenAPIConfig {
 
 //	@Primary
 //	@Bean

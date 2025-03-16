@@ -12,7 +12,7 @@ public class LivroController {
 
 	@GetMapping("/consultar")
 	public ModelAndView helloWorld(Model model) {
-		ModelAndView mv = new ModelAndView("livro/index");
+		ModelAndView mv = new ModelAndView("livro/livro");
 		mv.addObject("titulo", "Livro");
 		return mv;
 	}

@@ -2,16 +2,25 @@ package br.com.agrego;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // (debug = true)
 public class SecurityConfig {
+
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -65,8 +74,15 @@ public class SecurityConfig {
 				.build();
 		return new InMemoryUserDetailsManager(user,admin);
 	}
+//	@Bean
+//	public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+//		return http.getSharedObject(AuthenticationManagerBuilder.class)
+//				.userDetailsService(userDetailsService())
+//				.passwordEncoder(bCryptPasswordEncoder)
+//				.and()
+//				.build();
+//	}
 	// @formatter:on
-	
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();

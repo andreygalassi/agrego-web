@@ -4,7 +4,24 @@ const app = Vue.createApp({
 	},
 	data() {
 		return {
-			count: 0
+			count: 0,
+			config: {
+				table: {
+					loading: false,
+					pagination: {
+						itemsPerPage: 5,
+						totalItems: 0,
+					}
+				}
+			},
+			headers: [
+				{ title: 'ID', key: 'id',align: 'center', sortable: true, },
+				{ title: 'Nome', key: 'nome', align: 'center', sortable: true, },
+			],
+			itens: [
+				{id:1, nome:'autor1'},
+				{id:2, nome:'autor2'},
+			],
 		}
 	},
 	methods: {
