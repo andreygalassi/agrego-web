@@ -3,31 +3,43 @@
 
 <th:block layout:fragment="conteudo">
 	<v-main>
-		<v-container fluid>
-			<h1 th:text="${titulo}">Titulo</h1>
-		</v-container>
+		<v-form ref="formFiltro" id="formFiltro">
+			<v-container fluid>
+				<h1 th:text="${titulo}">Titulo</h1>
+			</v-container>
+			
+			<v-container fluid>
+				<v-row>
+					<v-col cols="2"><v-text-field v-model="consulta.filtro.id" density="compact" label="Id" placeholder="Id" variant="outlined" clearable /></v-col>
+					<v-col cols="2"><v-text-field v-model="consulta.filtro.nome" density="compact" label="Nome" placeholder="Nome" variant="outlined" clearable /></v-col>
+				</v-row>
+			</v-container>
+			<v-container class="ml-1 ">
+				<v-btn class="mr-2" color="" @click="limpar()">Limpar</v-btn>
+				<v-btn class="mr-2" color="secondary" @click="pesquisar()">Pesquisar</v-btn>
+				<v-btn class="mr-2" color="primary" @click="criar()">Criar</v-btn>
+			</v-container>
+		</v-form>
 		
 		<v-container fluid>
-			<v-row>
-				<v-col cols="2"><v-text-field density="compact" label="Id" placeholder="Id" variant="outlined"/></v-col>
-				<v-col cols="2"><v-text-field density="compact" label="Nome" placeholder="Nome" variant="outlined"/></v-col>
-			</v-row>
-		</v-container>
-		<v-container class="ml-1 ">
-			<v-btn class="mr-2" color="">Limpar</v-btn>
-			<v-btn class="mr-2" color="secondary">Pesquisar</v-btn>
-			<v-btn class="mr-2" color="primary">Novo</v-btn>
-		</v-container>
-		<v-container fluid>
-			<v-data-table-server density="compact"
+			<v-data-table-virtual density="compact"
 				:items-per-page="config.table.pagination.itemsPerPage"
 				:items-length="config.table.pagination.totalItems"
 				:loading="config.table.loading"
 				:headers="headers"
-				:items="itens"
+				:items="consulta.resultado"
 				item-value="id"
+				height="400"
+				fixed-header
+				fixed-footer
+				class="elevation-2 styled-table"
 			/>
 		</v-container>
+			<v-container class="ml-1 ">
+				<v-btn class="mr-2" color="" @click="limpar()">Limpar</v-btn>
+				<v-btn class="mr-2" color="secondary" @click="pesquisar()">Pesquisar</v-btn>
+				<v-btn class="mr-2" color="primary" @click="criar()">Criar</v-btn>
+			</v-container>
 	</v-main>
 </th:block>
 

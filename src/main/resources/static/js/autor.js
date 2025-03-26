@@ -1,7 +1,11 @@
 const app = Vue.createApp({
-	mounted() {
-		console.log(`The initial count is ${this.count}.`)
+	created() {
+		this.carregaDominio();
 	},
+	computed() { 
+	},
+	mounted() { },
+	watch: { },
 	data() {
 		return {
 			count: 0,
@@ -11,20 +15,49 @@ const app = Vue.createApp({
 					pagination: {
 						itemsPerPage: 5,
 						totalItems: 0,
-					}
+					},
 				}
 			},
+			listasInternas: {},
 			headers: [
-				{ title: 'ID', key: 'id',align: 'center', sortable: true, },
-				{ title: 'Nome', key: 'nome', align: 'center', sortable: true, },
+				{ title: 'ID', key: 'id',align: 'left', sortable: true, },
+				{ title: 'Nome', key: 'nome', align: 'left', sortable: true, },
 			],
-			itens: [
-				{id:1, nome:'autor1'},
-				{id:2, nome:'autor2'},
-			],
+			api: {
+				principal: "../api/autor",
+			},
+			consulta: {
+				filtro: {},
+				resultado: [],
+			},
+			itemSelecionado: {},
 		}
 	},
 	methods: {
+		carregaDominio() { },
+		criar() {},
+		salvar() {},
+		editar(item) {},
+		deletar() {},
+		pesquisar() {
+			let headers = {
+					'Authorization': 'Bearer MEU_TOKEN',
+					'Content-Type': 'application/json'
+				};
+			this.$axios.get(this.api.principal, {params: this.getFiltro(), headers:headers}).then(
+				(response) => {
+					this.consulta.resultado = response.data;
+				}
+			).catch(
+				(error) => {
+					console.error('Erro:', error);
+				}
+			);
+		},
+		getFiltro() {
+			let filtro = Object.assign({}, this.consulta.filtro);
+			return filtro;
+		},
 		increment() {
 			this.count++
 		}
@@ -46,3 +79,4 @@ app.use(vuetify);
 
 app.mount('#app');
 
+app.config.globalProperties.$axios = axios;

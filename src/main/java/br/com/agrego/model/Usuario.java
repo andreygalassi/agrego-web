@@ -35,7 +35,7 @@ public class Usuario implements UserDetails {
 		joinColumns = @JoinColumn(name = "usuario_id"), 
 		inverseJoinColumns = @JoinColumn(name = "perfil_id")
 	)
-	private Set<Perfil> perfis;
+	private Set<Perfil> listaPerfil;
 	
 	public Long getId() {
 		return id;
@@ -79,11 +79,11 @@ public class Usuario implements UserDetails {
 	public String getUsername() {
 		return getLogin();
 	}
-	public Set<Perfil> getPerfis() {
-		return perfis;
+	public Set<Perfil> getListaPerfil() {
+		return listaPerfil;
 	}
-	public void setPerfis(Set<Perfil> perfis) {
-		this.perfis = perfis;
+	public void setListaPerfil(Set<Perfil> listaPerfil) {
+		this.listaPerfil = listaPerfil;
 	}
 	
 }

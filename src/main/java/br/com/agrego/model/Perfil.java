@@ -1,11 +1,15 @@
 package br.com.agrego.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import br.com.agrego.model.enuns.EnumRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Perfil implements Serializable {
@@ -14,47 +18,89 @@ public class Perfil implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	private Boolean visualizar;
-	private Boolean criar;
-	private Boolean alterar;
-	private Boolean deletar;
+	private EnumRole role;
+	private boolean visualizar=false;
+	private boolean consultar=false;
+	private boolean criar=false;
+	private boolean alterar=false;
+	private boolean deletar=false;
+	private boolean administrar=false;
 	
+	@Transient
+	public Set<String> getListRolesName() {
+		Set<String> lista = new HashSet<>();
+		lista.add(role.toString());
+		if (administrar) lista.add(role.toString()+"_ADMINISTRAR");
+		if (alterar) lista.add(role.toString()+"_ALTERAR");
+		if (consultar) lista.add(role.toString()+"_PESQUISAR");
+		if (criar) lista.add(role.toString()+"_CRIAR");
+		if (deletar) lista.add(role.toString()+"_DELETAR");
+		if (visualizar) lista.add(role.toString()+"_VISUALIZAR");
+		return lista;
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+
+	public EnumRole getRole() {
+		return role;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public void setRole(EnumRole role) {
+		this.role = role;
 	}
-	public Boolean getVisualizar() {
+
+	public boolean isVisualizar() {
 		return visualizar;
 	}
-	public void setVisualizar(Boolean visualizar) {
+
+	public void setVisualizar(boolean visualizar) {
 		this.visualizar = visualizar;
 	}
-	public Boolean getCriar() {
+
+	public boolean isConsultar() {
+		return consultar;
+	}
+
+	public void setConsultar(boolean consultar) {
+		this.consultar = consultar;
+	}
+
+	public boolean isCriar() {
 		return criar;
 	}
-	public void setCriar(Boolean criar) {
+
+	public void setCriar(boolean criar) {
 		this.criar = criar;
 	}
-	public Boolean getAlterar() {
+
+	public boolean isAlterar() {
 		return alterar;
 	}
-	public void setAlterar(Boolean alterar) {
+
+	public void setAlterar(boolean alterar) {
 		this.alterar = alterar;
 	}
-	public Boolean getDeletar() {
+
+	public boolean isDeletar() {
 		return deletar;
 	}
-	public void setDeletar(Boolean deletar) {
+
+	public void setDeletar(boolean deletar) {
 		this.deletar = deletar;
+	}
+
+	public boolean isAdministrar() {
+		return administrar;
+	}
+
+	public void setAdministrar(boolean administrar) {
+		this.administrar = administrar;
 	}
 
 }

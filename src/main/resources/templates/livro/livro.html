@@ -4,24 +4,30 @@
 <th:block layout:fragment="conteudo">
 	<v-main>
 		<v-container fluid>
-			<h1 th:text="${titulo}">Titulo</h1>
+			<h1 th:text="${titulo}">Livro</h1>
 		</v-container>
 		
 		<v-container fluid color="primary">
 			<v-row>
 				<v-col cols="2"><v-text-field density="compact" label="Id" placeholder="Id" variant="outlined"/></v-col>
-				<v-col cols="2"><v-text-field density="compact" label="Nome" placeholder="Nome" variant="outlined"/></v-col>
+				<v-col cols="2"><v-text-field density="compact" label="Titulo" placeholder="Titulo" variant="outlined"/></v-col>
+				<v-col cols="2"><v-text-field density="compact" label="Descricao" placeholder="Descricao" variant="outlined"/></v-col>
 			</v-row>
 		</v-container>
-		<v-container class="ml-1 " >
-			<v-btn class="mr-2" color="primary">Submit1</v-btn>
-			<v-btn>Submit1</v-btn>
-<!--			<v-col><v-btn >Submit1</v-btn><v-btn >Submit1</v-btn></v-col>-->
-<!--			<v-row >-->
-<!--			<v-col><v-btn >Submit1</v-btn><v-btn >Submit1</v-btn></v-col>-->
-<!--			<v-col><v-btn class="mt-2" block>Submit2</v-btn></v-col>-->
-<!--			<v-col><v-btn class="mt-2" block>Submit3</v-btn></v-col>-->
-<!--			</v-row>-->
+		<v-container class="ml-1 ">
+			<v-btn class="mr-2" color="">Limpar</v-btn>
+			<v-btn class="mr-2" color="secondary">Pesquisar</v-btn>
+			<v-btn class="mr-2" color="primary">Novo</v-btn>
+		</v-container>
+		<v-container fluid>
+			<v-data-table-server density="compact"
+				:items-per-page="config.table.pagination.itemsPerPage"
+				:items-length="config.table.pagination.totalItems"
+				:loading="config.table.loading"
+				:headers="headers"
+				:items="itens"
+				item-value="id"
+			/>
 		</v-container>
 	</v-main>
 </th:block>
