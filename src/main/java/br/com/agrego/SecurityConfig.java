@@ -2,6 +2,7 @@ package br.com.agrego;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity // (debug = true)
+@EnableWebSecurity//(debug = true)
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
@@ -29,16 +30,21 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
+			.csrf(csrf -> csrf.disable()) // <- aqui desativa o CSRF
 //			.csrf().disable()
 			.authorizeHttpRequests((requests) -> requests
 //				.requestMatchers("/", "/home").permitAll()
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/layout").permitAll()
+//				.requestMatchers("/api/**").permitAll()
+//				.requestMatchers(HttpMethod.POST,"/api/**").permitAll()
+//				.requestMatchers(HttpMethod.POST,"/api/autor").permitAll()
 //				.requestMatchers("/").permitAll()
-				.requestMatchers("/").authenticated()
+//				.requestMatchers("/").authenticated()
 				.requestMatchers("/static/**").permitAll()
 				.requestMatchers("/webjars/**").permitAll()
-				.anyRequest().authenticated()
+//				.anyRequest().authenticated()
+				.anyRequest().permitAll()
 			)
 //			.httpBasic(withDefaults())
 //			.formLogin(withDefaults())
@@ -59,6 +65,7 @@ public class SecurityConfig {
 					.permitAll())
 			;
 		// @formatter:on
+//		http.exceptionHandling(e -> e.accessDeniedHandler(customAccessDeniedHandler));
 		return http.build();
 	}
 

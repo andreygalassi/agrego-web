@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- Define o padrão do log -->
+<!--	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n " />-->
+	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%10thread] %-5level %-50logger{50} : %msg%n" />
+	
+
+	<!-- Diretório onde os logs serão salvos -->
+	<property name="LOG_PATH" value="logs" />
+
+	<!-- Console -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Arquivo com rotação diária -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/app.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory> <!-- guarda os logs por 7 dias -->
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Níveis de log -->
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+
+	<!-- Ativa DEBUG para pacotes específicos -->
+	<logger name="org.springframework.web" level="DEBUG" />
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="org.springframework.security" level="DEBUG" />
+
+</configuration>

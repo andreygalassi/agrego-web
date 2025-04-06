@@ -3,6 +3,8 @@ package br.com.agrego.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,8 @@ public class AutorService {
 	@Autowired
 	AutorRepository autorRepository;
 
-	public List<Autor> findAll() {
-		return autorRepository.findAll();
+	public Page<Autor> findAll(Pageable page) {
+		return autorRepository.findAll(page);
 	}
 
 	public Optional<Autor> findById(long id) {

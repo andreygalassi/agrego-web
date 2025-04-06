@@ -1,11 +1,14 @@
 package br.com.agrego.endpoint;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrego.model.Autor;
 import br.com.agrego.service.AutorService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
 //@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/autor")
 @RolesAllowed("AUTOR")
 public class AutorEndpoint {
 	
@@ -29,10 +33,10 @@ public class AutorEndpoint {
 	AutorService autorService;
 
 	@RolesAllowed("AUTOR_PESQUISAR")
-	@GetMapping("/autor")
-	public ResponseEntity<List<Autor>> findAll() {
+	@GetMapping
+	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page) {
 		try {
-			List<Autor> findAll = autorService.findAll();
+			Page<Autor> findAll = autorService.findAll(page);
 
 			if (findAll.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,7 +49,7 @@ public class AutorEndpoint {
 	}
 
 	@RolesAllowed("AUTOR_PESQUISAR")
-	@GetMapping("/autor/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Autor> getById(@PathVariable("id") long id) {
 		Optional<Autor> autor = autorService.findById(id);
 
@@ -57,7 +61,7 @@ public class AutorEndpoint {
 	}
 
 	@RolesAllowed("AUTOR_CRIAR")
-	@PostMapping("/autor")
+	@PostMapping
 	public ResponseEntity<Autor> create(@RequestBody Autor autor) {
 		try {
 			Autor autorSalvo = autorService.save(autor);
@@ -68,7 +72,7 @@ public class AutorEndpoint {
 	}
 
 	@RolesAllowed("AUTOR_ALTERAR")
-	@PutMapping("/autor/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Autor> update(@PathVariable("id") long id, @RequestBody Autor autor) {
 		Optional<Autor> oBean = autorService.findById(id);
 
@@ -81,7 +85,7 @@ public class AutorEndpoint {
 	}
 
 	@RolesAllowed("AUTOR_DELETAR")
-	@DeleteMapping("/autor/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
 		try {
 			autorService.deleteById(id);
@@ -92,7 +96,7 @@ public class AutorEndpoint {
 	}
 
 	@RolesAllowed("AUTOR_DELETAR")
-	@DeleteMapping("/autor")
+	@DeleteMapping
 	public ResponseEntity<HttpStatus> deleteAll() {
 		try {
 			autorService.deleteAll();
