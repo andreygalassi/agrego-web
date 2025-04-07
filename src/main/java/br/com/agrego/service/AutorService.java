@@ -17,6 +17,10 @@ public class AutorService {
 	@Autowired
 	AutorRepository autorRepository;
 
+	public Page<Autor> findByFiltro(Pageable page, Autor filtro) {
+		return autorRepository.findByFiltro(page, filtro);
+	}
+	
 	public Page<Autor> findAll(Pageable page) {
 		return autorRepository.findAll(page);
 	}
@@ -37,8 +41,8 @@ public class AutorService {
 		autorRepository.deleteAll();
 	}
 
-	public List<Autor> findByNome(String nome) {
-		return autorRepository.findByNomeContaining(nome);
-	}
+//	public List<Autor> findByNome(String nome) {
+//		return autorRepository.findByNomeContaining(nome);
+//	}
 	
 }

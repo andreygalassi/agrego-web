@@ -3,7 +3,7 @@ const app = Vue.createApp({
 		this.carregaDominio();
 	},
 	computed() { },
-	mounted() { window.comp = this; },
+	mounted() { window.$app = this; },
 	watch: { },
 	data() {
 		return {
@@ -12,7 +12,10 @@ const app = Vue.createApp({
 				table: {
 					loading: false,
 					pagination: {
-						itemsPerPage: 5,
+						page: 1,
+						size: 10,
+						sortBy: [],
+						search: '',
 						totalItems: 0,
 					},
 				},
@@ -98,6 +101,13 @@ const app = Vue.createApp({
 				}
 			);
 		},
+		updatePagination(options){
+			console.log(options);
+			this.config.table.pagination.size = options.itemsPerPage;
+			this.config.table.pagination.page = options.page-1;
+			this.config.table.pagination.sort = options.sortBy.map(s => `${s.key},${s.order}`);
+			this.pesquisar();
+		},
 		pesquisar() {
 			let headers = {
 					'Authorization': 'Bearer MEU_TOKEN',
@@ -123,7 +133,7 @@ const app = Vue.createApp({
 			return JSON.stringify(bean);
 		},
 		getFiltro() {
-			let filtro = Object.assign({}, this.consulta.filtro);
+			let filtro = Object.assign(this.config.table.pagination, this.consulta.filtro);
 			return filtro;
 		},
 		increment() {
@@ -132,19 +142,9 @@ const app = Vue.createApp({
 	},
 });
 
-const vuetify = Vuetify.createVuetify({
-	defaults: {
-		global: {
-//			density: 'compact',
-		},
-	},
-	theme: {
-		defaultTheme: 'light',
-	},
-})
+app.use(_vuetify);
 
-app.use(vuetify);
+app.config.globalProperties.$axios = _axios;
 
 app.mount('#app');
 
-app.config.globalProperties.$axios = axios;

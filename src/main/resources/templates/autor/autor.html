@@ -23,13 +23,14 @@
 		
 		<v-container fluid id="tabela">
 			<v-data-table-server item-value="id" height="400" fixed-header fixed-footer class="elevation-2 styled-table" density="compact"
-				v-model:items-per-page="config.table.pagination.itemsPerPage"
+				v-model:items-per-page="config.table.pagination.size"
 				:items-length="config.table.pagination.totalItems"
 				:loading="config.table.loading"
 				:headers="headers"
 				:items="consulta.resultado"
+				@update:options="updatePagination"
 				rows-per-page-text="Número de Registros por Página: " 
-				:rows-per-page-items="[5,10,25,50,100]"
+				:items-per-page-options="[5,10,25,50,100]"
 				
 			/>
 		</v-container>

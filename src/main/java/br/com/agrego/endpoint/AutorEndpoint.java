@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrego.model.Autor;
 import br.com.agrego.service.AutorService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
 //@CrossOrigin(origins = "http://localhost:8081")
@@ -34,9 +33,10 @@ public class AutorEndpoint {
 
 	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping
-	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page) {
+	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute Autor filtro) {
 		try {
-			Page<Autor> findAll = autorService.findAll(page);
+			
+			Page<Autor> findAll = autorService.findByFiltro(page, filtro);
 
 			if (findAll.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
