@@ -18,8 +18,14 @@ const _vuetify = Vuetify.createVuetify({
 		global: {
 //			density: 'compact',
 		},
+		VDataTableServer: {
+			class: 'elevation-2 data-table-borders',
+			density:'compact',
+		},
 	},
 	theme: {
 		defaultTheme: 'light',
+		defaults:{
+		},
 	},
 })

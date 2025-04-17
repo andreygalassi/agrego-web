@@ -14,7 +14,7 @@ const app = Vue.createApp({
 					pagination: {
 						page: 1,
 						size: 10,
-						sortBy: [],
+						sortBy: [{ key: 'id', order: 'asc' }],
 						search: '',
 						totalItems: 0,
 					},
@@ -28,6 +28,7 @@ const app = Vue.createApp({
 			headers: [
 				{ title: 'ID', key: 'id',align: 'left', sortable: true, },
 				{ title: 'Nome', key: 'nome', align: 'left', sortable: true, },
+				{ title: 'Ação', key: 'actions', align: 'end', sortable: false, width:5 },
 			],
 			api: {
 				principal: "../api/autor",
@@ -58,10 +59,10 @@ const app = Vue.createApp({
 		editar(item) {
 			this.limparItemSelecionado();
 			this.config.dialogItem.editar=true;
-			this.itemSelecionado = item;
+//			this.itemSelecionado = structuredClone(item);
+			this.itemSelecionado = JSON.parse(JSON.stringify(item));
 			this.config.dialogItem.abrir=true; 
 		},
-		deletar(item) {},
 		salvar() {
 			if (this.$refs.formItem.validate()){
 				if (this.config.dialogItem.editar==true){
@@ -89,11 +90,32 @@ const app = Vue.createApp({
 			);
 		},
 		atualizar(){
-			this.$axios.put().then(
+			let headers = {
+					'Authorization': 'Bearer MEU_TOKEN',
+					'Content-Type': 'application/json'
+				};
+			this.$axios.put(this.api.principal+'/'+this.itemSelecionado.id, this.getItemSelecionado(), {headers}).then(
 				(response) => {
 					this.limparItemSelecionado();
 					this.pesquisar();
 					this.config.dialogItem.abrir=false;
+				}
+			).catch(
+				(error) => {
+					console.error('Erro:', error);
+				}
+			);
+		},
+		deletar(item) {
+			let headers = {
+					'Authorization': 'Bearer MEU_TOKEN',
+					'Content-Type': 'application/json'
+				};
+			this.$axios.delete(this.api.principal+'/'+item.id, {headers}).then(
+				(response) => {
+					this.limparItemSelecionado();
+					this.pesquisar();
+					this.config.dialogConfirmaExclusao.abrir=false;
 				}
 			).catch(
 				(error) => {

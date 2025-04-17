@@ -2,6 +2,7 @@ package br.com.agrego.endpoint;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,7 +78,8 @@ public class AutorEndpoint {
 		Optional<Autor> oBean = autorService.findById(id);
 
 		if (oBean.isPresent()) {
-			Autor bean = oBean.get(); //TODO copiar dados para bean
+			Autor bean = oBean.get(); 
+			BeanUtils.copyProperties(autor, bean, "id");
 			return new ResponseEntity<>(autorService.save(bean), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

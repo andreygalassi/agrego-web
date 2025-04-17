@@ -1,40 +1,39 @@
 @charset "UTF-8";
 
-  .styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-  }
-  
-  .styled-table th,
-  .styled-table td {
-    padding: 12px 15px;
-    border: 1px solid #dddddd;
-  }
-  
-  .styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-  }
-  
-  .styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-  }
-  
-  .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-  }
-  
-  .styled-table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
+/* Borda entre colunas */
+.data-table-borders {
+	border-collapse: collapse;
+}
 
+.data-table-borders th {
+	font-weight: bold !important;       /* Texto em negrito */
+	background-color: rgb(192, 192, 192) !important; /* Azul do Material Design */
+/*	color: white !important;              Texto branco */
+}
 
+.data-table-borders th,
+.data-table-borders td {
+	border-right: 1px solid rgba(0, 0, 0, 0.12); /* Cor do tema */
+	border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Remover borda da última coluna */
+.data-table-borders th:last-child,
+.data-table-borders td:last-child {
+	border-right: none;
+}
+/* Linhas */
+.data-table-borders tr {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important; /* Linha entre registros */
+}
+
+/* LINHA APÓS O ÚLTIMO REGISTRO - SOLUÇÃO */
+.data-table-borders tbody tr:last-child td {
+	border-bottom: 2px solid rgb(192, 192, 192) !important; /* Linha mais espessa após último item */
+}
+
+/* Estilo para os headers */
+.header-borders {
+	background-color: rgb(0, 0, 255) !important;
+	border-bottom: 2px solid #ddd !important;
+}
