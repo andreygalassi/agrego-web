@@ -11,7 +11,14 @@ const _axios = axios.create({
 		}
 		return query.toString()
 	}
-})
+});
+
+const vMaskV2 = VueMask.VueMaskDirective;
+const vMaskV3 = {
+	beforeMount: vMaskV2.bind,
+	updated: vMaskV2.componentUpdated,
+	unmounted: vMaskV2.unbind
+};
 
 const _vuetify = Vuetify.createVuetify({
 	defaults: {
@@ -28,4 +35,4 @@ const _vuetify = Vuetify.createVuetify({
 		defaults:{
 		},
 	},
-})
+});

@@ -16,6 +16,8 @@ public class Autor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	private String email;
+	private String celular;
 	@OneToMany(mappedBy = "autor")
 	private List<Livro> listaLivros;
 
@@ -59,6 +61,22 @@ public class Autor {
 	@Override
 	public String toString() {
 		return String.format("Autor [id=%s, nome=%s, listaLivros=%s]", id, nome, listaLivros);
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 }

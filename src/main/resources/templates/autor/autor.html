@@ -12,6 +12,8 @@
 				<v-row>
 					<v-col cols="2"><v-text-field v-model="consulta.filtro.id" density="compact" label="Id" placeholder="Id" variant="outlined" clearable /></v-col>
 					<v-col cols="2"><v-text-field v-model="consulta.filtro.nome" density="compact" label="Nome" placeholder="Nome" variant="outlined" clearable /></v-col>
+					<v-col cols="2"><v-text-field v-model="consulta.filtro.email" density="compact" label="E-Mail" placeholder="E-Mail" variant="outlined" clearable /></v-col>
+					<v-col cols="2"><v-text-field v-model="consulta.filtro.celular" density="compact" label="Celular" placeholder="Celular" variant="outlined" clearable v-mask="'(##) #####-####'" /></v-col>
 				</v-row>
 			</v-container>
 			<v-container class="ml-1 ">
@@ -48,6 +50,8 @@
 				<v-card-text> 
 						<v-row dense>
 							<v-col><v-text-field v-model="itemSelecionado.nome" density="compact" label="Nome" placeholder="Nome" variant="outlined" clearable /></v-col>
+							<v-col><v-text-field v-model="itemSelecionado.email" density="compact" label="E-Mail" placeholder="E-Mail" variant="outlined" clearable /></v-col>
+							<v-col><v-text-field v-model="itemSelecionado.celular" density="compact" label="Celular" placeholder="Celular" variant="outlined" clearable v-mask="'(##) #####-####'" /></v-col>
 						</v-row>
 				</v-card-text>
 				<v-divider></v-divider>

@@ -28,6 +28,8 @@ const app = Vue.createApp({
 			headers: [
 				{ title: 'ID', key: 'id',align: 'left', sortable: true, },
 				{ title: 'Nome', key: 'nome', align: 'left', sortable: true, },
+				{ title: 'Email', key: 'email', align: 'left', sortable: true, },
+				{ title: 'Celular', key: 'celular', align: 'right', sortable: true, },
 				{ title: 'Ação', key: 'actions', align: 'end', sortable: false, width:5 },
 			],
 			api: {
@@ -165,6 +167,8 @@ const app = Vue.createApp({
 });
 
 app.use(_vuetify);
+
+app.directive('mask', vMaskV3);
 
 app.config.globalProperties.$axios = _axios;
 
