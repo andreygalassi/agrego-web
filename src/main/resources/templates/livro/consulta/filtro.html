@@ -1,0 +1,20 @@
+<v-form ref="formFiltro" id="formFiltro">
+	<v-container fluid>
+		<v-row dense>
+			<v-col cols="2"><v-text-field v-model="consulta.filtro.id" density="compact" label="Id" placeholder="Id" variant="outlined" clearable /></v-col>
+			<v-col cols="2"><v-text-field v-model="consulta.filtro.titulo" density="compact" label="Titulo" placeholder="Titulo" variant="outlined" clearable /></v-col>
+			<v-col cols="2"><v-text-field v-model="consulta.filtro.descricao" density="compact" label="Descrição" placeholder="Descrição" variant="outlined" clearable /></v-col>
+			<v-col cols="4">
+				<v-combobox label="Autor" density="compact" variant="outlined" chips closable-chips multiple clearable
+					v-model="consulta.filtro.listaAutor" 
+					:items="listasInternas.listaAutor.map(x=>x.nome)" 
+				/>
+			</v-col>
+		</v-row>
+		<v-row dense>
+		</v-row>
+	</v-container>
+	
+	<th:block th:replace="~{_config/botoes}" />
+	
+</v-form>

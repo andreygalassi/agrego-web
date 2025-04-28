@@ -22,6 +22,10 @@ public abstract class AbstractJpaRepository<T, ID> {
 	protected AbstractJpaRepository(JpaRepository<T, ID> repository) {
 		this.repository = repository;
 	}
+	
+	public JpaRepository<T, ID> getIRepo(){
+		return this.repository;
+	}
 
 	public Optional<T> findById(ID id) {
 		return repository.findById(id);
@@ -58,4 +62,5 @@ public abstract class AbstractJpaRepository<T, ID> {
 	EntityManager getEm() {
 		return em;
 	}
+	
 }

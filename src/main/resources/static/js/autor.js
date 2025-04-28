@@ -7,7 +7,6 @@ const app = Vue.createApp({
 	watch: { },
 	data() {
 		return {
-			count: 0,
 			config: {
 				table: {
 					loading: false,
@@ -17,6 +16,13 @@ const app = Vue.createApp({
 						sortBy: [{ key: 'id', order: 'asc' }],
 						search: '',
 						totalItems: 0,
+					},
+				},
+				pesquisa: {
+					pagination: {
+						page: null,
+						size: null,
+						sort: null
 					},
 				},
 				dialogItem: {
@@ -44,6 +50,13 @@ const app = Vue.createApp({
 	},
 	methods: {
 		carregaDominio() { },
+		updatePagination(options){
+			console.log(options);
+			this.config.pesquisa.pagination.size = options.itemsPerPage;
+			this.config.pesquisa.pagination.page = options.page-1;
+			this.config.pesquisa.pagination.sort = options.sortBy.map(s => `${s.key},${s.order}`);
+			this.pesquisar();
+		},
 		limpar() {
 			this.$refs.formFiltro.reset();
 			this.consulta.resultado = [];
@@ -125,18 +138,12 @@ const app = Vue.createApp({
 				}
 			);
 		},
-		updatePagination(options){
-			console.log(options);
-			this.config.table.pagination.size = options.itemsPerPage;
-			this.config.table.pagination.page = options.page-1;
-			this.config.table.pagination.sort = options.sortBy.map(s => `${s.key},${s.order}`);
-			this.pesquisar();
-		},
 		pesquisar() {
-			let headers = {
-					'Authorization': 'Bearer MEU_TOKEN',
-					'Content-Type': 'application/json'
-				};
+			let headers = {};
+//			let headers = {
+//					'Authorization': 'Bearer MEU_TOKEN',
+//					'Content-Type': 'application/json'
+//				};
 			this.$axios.get(this.api.principal, {params: this.getFiltro(), headers:headers}).then(
 				(response) => {
 					this.config.table.pagination.totalItems = response.data.totalElements;
@@ -157,12 +164,9 @@ const app = Vue.createApp({
 			return JSON.stringify(bean);
 		},
 		getFiltro() {
-			let filtro = Object.assign(this.config.table.pagination, this.consulta.filtro);
+			let filtro = Object.assign(this.config.pesquisa.pagination, this.consulta.filtro);
 			return filtro;
 		},
-		increment() {
-			this.count++
-		}
 	},
 });
 

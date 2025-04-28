@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrego.model.Autor;
+import br.com.agrego.model.dto.AutorFiltro;
 import br.com.agrego.service.AutorService;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -34,7 +35,7 @@ public class AutorEndpoint {
 
 	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping
-	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute Autor filtro) {
+	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute AutorFiltro filtro) {
 		try {
 			
 			Page<Autor> findAll = autorService.findByFiltro(page, filtro);

@@ -1,0 +1,19 @@
+<v-form ref="formItem" id="formItem">
+	<v-dialog v-model="config.dialogItem.abrir" persistent max-width="800" >
+		<v-card :title="`Autor: ${itemSelecionado.id}`"> 
+			<v-card-text> 
+					<v-row dense>
+						<v-col><v-text-field v-model="itemSelecionado.nome" density="compact" label="Nome" placeholder="Nome" variant="outlined" clearable /></v-col>
+						<v-col><v-text-field v-model="itemSelecionado.email" density="compact" label="E-Mail" placeholder="E-Mail" variant="outlined" clearable /></v-col>
+						<v-col><v-text-field v-model="itemSelecionado.celular" density="compact" label="Celular" placeholder="Celular" variant="outlined" clearable v-mask="'(##) #####-####'" /></v-col>
+					</v-row>
+			</v-card-text>
+			<v-divider></v-divider>
+			<v-card-actions>
+				<v-btn text="Cacelar" variant="tonal" @click="config.dialogItem.abrir = false" color="red" ></v-btn>
+				<v-spacer></v-spacer>
+				<v-btn text="Salvar"  variant="tonal" @click="salvar()" color="primary" ></v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-dialog>
+</v-form> 

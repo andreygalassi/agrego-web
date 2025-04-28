@@ -1,0 +1,25 @@
+<v-form ref="formItem" id="formItem">
+	<v-dialog v-model="config.dialogItem.abrir" persistent max-width="800" >
+		<v-card :title="`Autor: ${itemSelecionado.id}`"> 
+			<v-card-text> 
+					<v-row dense>
+						<v-col><v-text-field v-model="itemSelecionado.titulo" label="Titulo" placeholder="Titulo" variant="outlined" density="compact" clearable /></v-col>
+						<v-col><v-text-field v-model="itemSelecionado.descricao" label="Descrição" placeholder="Descrição" variant="outlined" density="compact" clearable /></v-col>
+						<v-col>
+							<v-autocomplete label="Autor" density="compact" variant="outlined" clearable 
+								v-model="itemSelecionado.autor" 
+								:items="listasInternas.listaAutor" 
+								item-title="nome"
+							/>
+						</v-col>
+					</v-row>
+			</v-card-text>
+			<v-divider></v-divider>
+			<v-card-actions>
+				<v-btn text="Cacelar" variant="tonal" @click="config.dialogItem.abrir = false" color="red" ></v-btn>
+				<v-spacer></v-spacer>
+				<v-btn text="Salvar"  variant="tonal" @click="salvar()" color="primary" ></v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-dialog>
+</v-form> 

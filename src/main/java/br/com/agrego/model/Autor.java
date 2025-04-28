@@ -3,6 +3,10 @@ package br.com.agrego.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Autor {
 
 	@Id
@@ -18,6 +23,7 @@ public class Autor {
 	private String nome;
 	private String email;
 	private String celular;
+	
 	@OneToMany(mappedBy = "autor")
 	private List<Livro> listaLivros;
 

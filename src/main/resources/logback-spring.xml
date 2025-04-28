@@ -3,7 +3,8 @@
 
 	<!-- Define o padrão do log -->
 <!--	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n " />-->
-	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%10thread] %-5level %-50logger{50} : %msg%n" />
+	<property name="LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss} [%10thread] %-5level %-50logger{50} : %msg%n" />
 	
 
 	<!-- Diretório onde os logs serão salvos -->
@@ -37,8 +38,17 @@
 	</root>
 
 	<!-- Ativa DEBUG para pacotes específicos -->
-	<logger name="org.springframework.web" level="DEBUG" />
+	<logger name="org.springframework.web" level="ERROR" />
 <!--	<logger name="org.hibernate.SQL" level="DEBUG" />-->
-	<logger name="org.springframework.security" level="DEBUG" />
-
+<!--	<logger name="org.springframework.security" level="ERROR" />-->
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.hibernate" level="INFO " />
+	<logger name="br.com.agrego" level="INFO" />
+	
+	<!-- Níveis de log para Spring e sua aplicação -->
+<!--	<logger name="org.springframework" level="DEBUG" />-->
+<!--	<logger name="org.hibernate.resource" level="DEBUG " />-->
+<!--	<logger name="org.springframework.dao.support" level="TRACE " />-->
+<!--	<logger name="org.hibernate.SQL" level="DEBUG" />-->
+<!--	<logger name="org.hibernate.type.descriptor.sql" level="TRACE" />-->
 </configuration>

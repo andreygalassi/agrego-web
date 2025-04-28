@@ -1,14 +1,14 @@
 package br.com.agrego.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.agrego.model.Autor;
+import br.com.agrego.model.dto.AutorFiltro;
 import br.com.agrego.repository.AutorRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class AutorService {
 	@Autowired
 	AutorRepository autorRepository;
 
-	public Page<Autor> findByFiltro(Pageable page, Autor filtro) {
+	public Page<Autor> findByFiltro(Pageable page, AutorFiltro filtro) {
 		return autorRepository.findByFiltro(page, filtro);
 	}
 	
@@ -40,9 +40,4 @@ public class AutorService {
 	public void deleteAll() {
 		autorRepository.deleteAll();
 	}
-
-//	public List<Autor> findByNome(String nome) {
-//		return autorRepository.findByNomeContaining(nome);
-//	}
-	
 }

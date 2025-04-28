@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" layout:decorate="~{_config/corpo}">
+
+<th:block layout:fragment="conteudo">
+	<v-main>
+		<v-container fluid>
+			<h1 th:text="${titulo}">Titulo</h1>
+		</v-container>
+		
+		<th:block th:replace="~{livro/consulta/filtro}" />
+		<th:block th:replace="~{livro/consulta/resultado}" />
+		<th:block th:replace="~{livro/item/item}" />
+
+	</v-main>
+	
+</th:block>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript" th:src="@{/static/js/livro.js}"></script>
+</th:block>
+
+</html>

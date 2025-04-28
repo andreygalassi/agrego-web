@@ -16,7 +16,7 @@ public class AutorController {
 //	@RolesAllowed("AUTOR_VISUALIZAR")
 	@GetMapping("/consultar")
 	public ModelAndView helloWorld(Model model) {
-		ModelAndView mv = new ModelAndView("autor/autor");
+		ModelAndView mv = new ModelAndView("autor/index");
 		mv.addObject("titulo", "Autor");
 		return mv;
 	}
