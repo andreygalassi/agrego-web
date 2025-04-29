@@ -2,6 +2,8 @@ package br.com.agrego.endpoint;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RequestMapping("/api/livro")
 @RolesAllowed("LIVRO")
 public class LivroEndpoint {
+	Logger LOGGER = LoggerFactory.getLogger(LivroEndpoint.class);
 	
 	@Autowired
 	LivroService service;
@@ -46,6 +49,7 @@ public class LivroEndpoint {
 
 			return new ResponseEntity<>(findAll, HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -69,6 +73,7 @@ public class LivroEndpoint {
 			Livro livroSalvo = service.save(livro);
 			return new ResponseEntity<>(livroSalvo, HttpStatus.CREATED);
 		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -94,6 +99,7 @@ public class LivroEndpoint {
 			service.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -105,6 +111,7 @@ public class LivroEndpoint {
 			service.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 

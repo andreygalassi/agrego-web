@@ -48,7 +48,10 @@ const app = Vue.createApp({
 				filtro: {},
 				resultado: [],
 			},
-			itemSelecionado: {},
+			itemSelecionado: {
+				id: null,
+				autor: {id:null},
+			},
 		}
 	},
 	methods: {
@@ -77,7 +80,12 @@ const app = Vue.createApp({
 		},
 		limparItemSelecionado() {
 			this.$refs.formItem.reset();
-			this.itemSelecionado = {};
+			this.itemSelecionado = {
+				id:null,
+				autor: {
+					id:null
+				}
+			};
 		},
 		gerar() { 
 			this.limparItemSelecionado();
@@ -173,6 +181,7 @@ const app = Vue.createApp({
 		},
 		getItemSelecionado(){
 			let bean = Object.assign({},this.itemSelecionado);
+			bean.autor = _myHelper.pick(bean.autor, ['id']);
 			return JSON.stringify(bean);
 		},
 		getFiltro() {
@@ -189,5 +198,5 @@ app.directive('mask', vMaskV3);
 
 app.config.globalProperties.$axios = _axios;
 
-app.mount('#app');
+const vm = app.mount('#app');
 

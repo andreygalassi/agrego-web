@@ -24,6 +24,12 @@ const _vuetify = Vuetify.createVuetify({
 	defaults: {
 		global: {
 //			density: 'compact',
+			objectHelpers: {
+				pick: (obj, keys) => keys.reduce((acc, key) => {
+					if (obj?.hasOwnProperty(key)) acc[key] = obj[key];
+					return acc;
+				}, {})
+			},
 		},
 		VDataTableServer: {
 			class: 'elevation-2 data-table-borders',
@@ -36,3 +42,10 @@ const _vuetify = Vuetify.createVuetify({
 		},
 	},
 });
+
+const _myHelper = {
+	pick: (obj, keys) => keys.reduce((acc, key) => {
+		if (obj?.hasOwnProperty(key)) acc[key] = obj[key];
+		return acc;
+	}, {})
+};

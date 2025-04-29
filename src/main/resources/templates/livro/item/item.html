@@ -1,6 +1,6 @@
 <v-form ref="formItem" id="formItem">
 	<v-dialog v-model="config.dialogItem.abrir" persistent max-width="800" >
-		<v-card :title="`Autor: ${itemSelecionado.id}`"> 
+		<v-card :title="`Livro: ${itemSelecionado.id}`"> 
 			<v-card-text> 
 					<v-row dense>
 						<v-col><v-text-field v-model="itemSelecionado.titulo" label="Titulo" placeholder="Titulo" variant="outlined" density="compact" clearable /></v-col>
@@ -10,7 +10,9 @@
 								v-model="itemSelecionado.autor" 
 								:items="listasInternas.listaAutor" 
 								item-title="nome"
-							/>
+								item-value="id"
+								return-object
+							></v-autocomplete>
 						</v-col>
 					</v-row>
 			</v-card-text>

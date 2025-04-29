@@ -45,7 +45,9 @@ const app = Vue.createApp({
 				filtro: {},
 				resultado: [],
 			},
-			itemSelecionado: {},
+			itemSelecionado: {
+				id: null,
+			},
 		}
 	},
 	methods: {
@@ -176,5 +178,5 @@ app.directive('mask', vMaskV3);
 
 app.config.globalProperties.$axios = _axios;
 
-app.mount('#app');
+const vm = app.mount('#app');
 

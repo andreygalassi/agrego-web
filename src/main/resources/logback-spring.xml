@@ -3,8 +3,7 @@
 
 	<!-- Define o padrão do log -->
 <!--	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n " />-->
-	<property name="LOG_PATTERN"
-		value="%d{yyyy-MM-dd HH:mm:ss} [%10thread] %-5level %-50logger{50} : %msg%n" />
+	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%10thread] %-5level %-50logger{50} : %msg%n" />
 	
 
 	<!-- Diretório onde os logs serão salvos -->
@@ -18,11 +17,9 @@
 	</appender>
 
 	<!-- Arquivo com rotação diária -->
-	<appender name="FILE"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/app.log</file>
-		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_PATH}/app-%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>7</maxHistory> <!-- guarda os logs por 7 dias -->
 		</rollingPolicy>
@@ -31,24 +28,20 @@
 		</encoder>
 	</appender>
 
-	<!-- Níveis de log -->
-	<root level="INFO">
+	<!-- Define o log da aplicação -->
+	<logger name="br.com.agrego" level="INFO" additivity="false">
 		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
+	</logger>
+
+	<!-- Define logs de bibliotecas externas -->
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.apache" level="ERROR" />
+	
+	<!-- Níveis de log -->
+	<root level="ERROR">
+		<appender-ref ref="CONSOLE" />
+<!--		<appender-ref ref="FILE" />-->
 	</root>
 
-	<!-- Ativa DEBUG para pacotes específicos -->
-	<logger name="org.springframework.web" level="ERROR" />
-<!--	<logger name="org.hibernate.SQL" level="DEBUG" />-->
-<!--	<logger name="org.springframework.security" level="ERROR" />-->
-	<logger name="org.springframework" level="INFO" />
-	<logger name="org.hibernate" level="INFO " />
-	<logger name="br.com.agrego" level="INFO" />
-	
-	<!-- Níveis de log para Spring e sua aplicação -->
-<!--	<logger name="org.springframework" level="DEBUG" />-->
-<!--	<logger name="org.hibernate.resource" level="DEBUG " />-->
-<!--	<logger name="org.springframework.dao.support" level="TRACE " />-->
-<!--	<logger name="org.hibernate.SQL" level="DEBUG" />-->
-<!--	<logger name="org.hibernate.type.descriptor.sql" level="TRACE" />-->
 </configuration>
