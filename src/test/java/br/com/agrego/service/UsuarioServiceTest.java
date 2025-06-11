@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.agrego.model.Perfil;
 import br.com.agrego.model.Usuario;
-import br.com.agrego.model.enuns.EnumRole;
+import br.com.agrego.model.enuns.EnumAcao;
+import br.com.agrego.model.enuns.EnumRecurso;
 
 @SpringBootTest
 public class UsuarioServiceTest {
@@ -23,11 +24,20 @@ public class UsuarioServiceTest {
 	@Test
 	void deveTestarCriarUsuario() {
 		Perfil perfil = new Perfil();
-		perfil.setRole(EnumRole.AUTOR);
-		perfil.setVisualizar(true);
-		perfil.setConsultar(true);
-		perfil = perfilService.save(perfil);
+		perfil.setNome("DEFAULT");
+		perfil.addAcesso(EnumRecurso.AUTOR, EnumAcao.ALTERAR);
+		perfil.addAcesso(EnumRecurso.AUTOR, EnumAcao.CRIAR);
+		perfil.addAcesso(EnumRecurso.AUTOR, EnumAcao.EXCLUIR);
+		perfil.addAcesso(EnumRecurso.AUTOR, EnumAcao.PESQUISAR);
+		perfil.addAcesso(EnumRecurso.AUTOR, EnumAcao.VISUALIZAR);
 		
+		perfil.addAcesso(EnumRecurso.LIVRO, EnumAcao.ALTERAR);
+		perfil.addAcesso(EnumRecurso.LIVRO, EnumAcao.CRIAR);
+		perfil.addAcesso(EnumRecurso.LIVRO, EnumAcao.EXCLUIR);
+		perfil.addAcesso(EnumRecurso.LIVRO, EnumAcao.PESQUISAR);
+		perfil.addAcesso(EnumRecurso.LIVRO, EnumAcao.VISUALIZAR);
+		
+		perfil = perfilService.save(perfil);
 		
 		Usuario entity = new Usuario();
 		

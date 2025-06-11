@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.agrego.model.Perfil;
-import br.com.agrego.model.enuns.EnumRole;
+import br.com.agrego.model.enuns.EnumRecurso;
 import br.com.agrego.repository.PerfilRepository;
 
 @Service
@@ -36,8 +36,8 @@ public class PerfilService {
 		perfilRepository.deleteAll();
 	}
 
-	public Optional<Perfil> findByRole(EnumRole role) {
-		return perfilRepository.findByRole(role);
+	public Optional<Perfil> findByRole(EnumRecurso role) {
+		return null;//perfilRepository.findByRole(role);
 	}
 
 }

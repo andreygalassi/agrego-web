@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrego.model.Livro;
 import br.com.agrego.model.dto.LivroFiltro;
+import br.com.agrego.model.dto.LivroResponse;
 import br.com.agrego.service.LivroService;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -38,10 +39,10 @@ public class LivroEndpoint {
 
 	@RolesAllowed("LIVRO_PESQUISAR")
 	@GetMapping
-	public ResponseEntity<Page<Livro>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute LivroFiltro filtro) {
+	public ResponseEntity<Page<LivroResponse>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute LivroFiltro filtro) {
 		try {
 			
-			Page<Livro> findAll = service.findByFiltro(page, filtro);
+			Page<LivroResponse> findAll = service.findByFiltro(page, filtro).map(LivroResponse::valueOf); ;
 
 			if (findAll.isEmpty()) {
 				return new ResponseEntity<>(findAll, HttpStatus.NO_CONTENT);

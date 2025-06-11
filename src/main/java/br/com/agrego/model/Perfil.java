@@ -1,46 +1,36 @@
 package br.com.agrego.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import br.com.agrego.model.enuns.EnumRole;
+import org.apache.commons.lang3.StringUtils;
+
+import br.com.agrego.model.enuns.EnumAcao;
+import br.com.agrego.model.enuns.EnumRecurso;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "aut_perfil")
 public class Perfil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Enumerated(EnumType.STRING)
-	private EnumRole role;
-	private boolean visualizar=false;
-	private boolean consultar=false;
-	private boolean criar=false;
-	private boolean alterar=false;
-	private boolean deletar=false;
-	private boolean administrar=false;
 	
-	@Transient
-	public Set<String> getListRolesName() {
-		Set<String> lista = new HashSet<>();
-		lista.add(role.toString());
-		if (administrar) lista.add(role.toString()+"_ADMINISTRAR");
-		if (alterar) lista.add(role.toString()+"_ALTERAR");
-		if (consultar) lista.add(role.toString()+"_PESQUISAR");
-		if (criar) lista.add(role.toString()+"_CRIAR");
-		if (deletar) lista.add(role.toString()+"_DELETAR");
-		if (visualizar) lista.add(role.toString()+"_VISUALIZAR");
-		return lista;
-	}
+	private String nome;
+
+	@OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Acesso> listaAcesso;
 
 	public Long getId() {
 		return id;
@@ -50,60 +40,30 @@ public class Perfil implements Serializable {
 		this.id = id;
 	}
 
-	public EnumRole getRole() {
-		return role;
+	public String getNome() {
+		return StringUtils.upperCase(nome);
 	}
 
-	public void setRole(EnumRole role) {
-		this.role = role;
+	public void setNome(String nome) {
+		this.nome = StringUtils.upperCase(nome);
 	}
 
-	public boolean isVisualizar() {
-		return visualizar;
+	public List<Acesso> getListaAcesso() {
+		return listaAcesso;
 	}
-
-	public void setVisualizar(boolean visualizar) {
-		this.visualizar = visualizar;
+	public void setListaAcesso(List<Acesso> listaAcesso) {
+		this.listaAcesso = listaAcesso;
 	}
-
-	public boolean isConsultar() {
-		return consultar;
+	public void addAcesso(EnumRecurso recurso, EnumAcao acao) {
+		if (this.listaAcesso==null) this.listaAcesso = new ArrayList<>();
+		Acesso acesso = new Acesso();
+		acesso.setPerfil(this);
+		acesso.setRecurso(recurso);
+		acesso.setAcao(acao);
+		this.listaAcesso.add(acesso);
 	}
-
-	public void setConsultar(boolean consultar) {
-		this.consultar = consultar;
+	
+	public Set<String> getListaRolesName(){
+		return this.listaAcesso.stream().map(r -> r.getRole()).collect(Collectors.toSet());
 	}
-
-	public boolean isCriar() {
-		return criar;
-	}
-
-	public void setCriar(boolean criar) {
-		this.criar = criar;
-	}
-
-	public boolean isAlterar() {
-		return alterar;
-	}
-
-	public void setAlterar(boolean alterar) {
-		this.alterar = alterar;
-	}
-
-	public boolean isDeletar() {
-		return deletar;
-	}
-
-	public void setDeletar(boolean deletar) {
-		this.deletar = deletar;
-	}
-
-	public boolean isAdministrar() {
-		return administrar;
-	}
-
-	public void setAdministrar(boolean administrar) {
-		this.administrar = administrar;
-	}
-
 }

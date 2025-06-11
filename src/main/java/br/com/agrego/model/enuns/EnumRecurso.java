@@ -1,7 +1,9 @@
 package br.com.agrego.model.enuns;
 
-public enum EnumRole {
+public enum EnumRecurso {
 	
+	USUARIO,
+	PERFIL,
 	AUTOR,
 	LIVRO,
 

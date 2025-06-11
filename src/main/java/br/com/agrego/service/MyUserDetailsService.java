@@ -28,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		return User
 				.withUsername(usuario.get().getUsername())
 				.password(usuario.get().getPassword())
-				.roles(usuario.get().getListaPerfil().stream().flatMap(r -> r.getListRolesName().stream()).toArray(String[]::new))
+				.roles(usuario.get().getListaPerfil().stream().flatMap(r -> r.getListaRolesName().stream()).toArray(String[]::new))
 				.build();
 	}
 }
