@@ -1,6 +1,5 @@
 package br.com.agrego.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import br.com.agrego.model.enuns.EnumAcao;
@@ -17,8 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "aut_acesso")
-public class Acesso implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Acesso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

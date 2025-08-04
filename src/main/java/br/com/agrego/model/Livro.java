@@ -2,7 +2,6 @@ package br.com.agrego.model;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 

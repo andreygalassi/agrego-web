@@ -2,8 +2,6 @@ package br.com.agrego.model.dto;
 
 import java.util.Set;
 
-import br.com.agrego.model.Autor;
-
 public class LivroFiltro {
 
 	private Long id;
