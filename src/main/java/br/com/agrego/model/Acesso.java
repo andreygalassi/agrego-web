@@ -86,5 +86,10 @@ public class Acesso implements Serializable {
 		Acesso other = (Acesso) obj;
 		return acao == other.acao && Objects.equals(perfil, other.perfil) && recurso == other.recurso;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Acesso [id=%s, perfil=%s, recurso=%s, acao=%s]", id, perfil, recurso, acao);
+	}
 	
 }

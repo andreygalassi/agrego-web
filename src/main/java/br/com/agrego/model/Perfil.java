@@ -66,4 +66,9 @@ public class Perfil implements Serializable {
 	public Set<String> getListaRolesName(){
 		return this.listaAcesso.stream().map(r -> r.getRole()).collect(Collectors.toSet());
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Perfil [id=%s, nome=%s]", id, nome);
+	}
 }

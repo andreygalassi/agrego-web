@@ -7,7 +7,19 @@ import org.springframework.stereotype.Repository;
 
 import br.com.agrego.model.Usuario;
 
+interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
+	Optional<Usuario> findByLogin(String username);
+}
+
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	Optional<Usuario> findByLogin(String login);
+public class UsuarioRepository extends AbstractJpaRepository<Usuario, Long, IUsuarioRepository> {
+
+	protected UsuarioRepository(IUsuarioRepository repo) {
+		super(repo);
+	}
+
+	public Optional<Usuario> findByLogin(String username) {
+		return getIRepo().findByLogin(username);
+	}
+
 }

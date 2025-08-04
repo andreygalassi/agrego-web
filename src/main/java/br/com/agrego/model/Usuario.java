@@ -86,5 +86,10 @@ public class Usuario implements UserDetails {
 	public void setListaPerfil(Set<Perfil> listaPerfil) {
 		this.listaPerfil = listaPerfil;
 	}
+	@Override
+	public String toString() {
+		return String.format("Usuario [id=%s, login=%s, nome=%s, email=%s, listaPerfil=%s]", id, login, 
+				nome, email, listaPerfil);
+	}
 	
 }

@@ -12,18 +12,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Transactional
-public abstract class AbstractJpaRepository<T, ID> {
+public abstract class AbstractJpaRepository<T, ID, I extends JpaRepository<T, ID>> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	protected final JpaRepository<T, ID> repository;
+	protected final I repository;
 
-	protected AbstractJpaRepository(JpaRepository<T, ID> repository) {
+	protected AbstractJpaRepository(I repository) {
 		this.repository = repository;
 	}
 	
-	public JpaRepository<T, ID> getIRepo(){
+	public I getIRepo(){
 		return this.repository;
 	}
 

@@ -16,8 +16,9 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 interface IAutorRepository extends JpaRepository<Autor, Long> {}
+
 @Repository
-public class AutorRepository extends AbstractJpaRepository<Autor, Long> {
+public class AutorRepository extends AbstractJpaRepository<Autor, Long, IAutorRepository> {
 
 	protected AutorRepository(IAutorRepository repo) {
 		super(repo);

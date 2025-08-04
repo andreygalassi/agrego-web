@@ -13,6 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("LIVRO")
 public class LivroController {
 
+	@RolesAllowed("LIVRO_VISUALIZAR")
 	@GetMapping("/consultar")
 	public ModelAndView helloWorld(Model model) {
 		ModelAndView mv = new ModelAndView("livro/index");

@@ -16,8 +16,9 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 interface ILivroRepository extends JpaRepository<Livro, Long> {}
+
 @Repository
-public class LivroRepository extends AbstractJpaRepository<Livro, Long> {
+public class LivroRepository extends AbstractJpaRepository<Livro, Long, ILivroRepository> {
 
 	protected LivroRepository(ILivroRepository repo) {
 		super(repo);
