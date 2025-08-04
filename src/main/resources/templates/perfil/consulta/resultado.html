@@ -1,0 +1,20 @@
+<v-container fluid id="tabela">
+	<v-data-table-server item-value="id" height="calc(100vh - 400px)" fixed-header fixed-footer hover multi-sort
+		v-model:items-per-page="config.table.pagination.size"
+		:sort-by="config.table.pagination.sortBy"
+		:items-length="config.table.pagination.totalItems"
+		:loading="config.table.loading"
+		:headers="headers"
+		:items="consulta.resultado"
+		@update:options="updatePagination"
+		rows-per-page-text="Número de Registros por Página: " 
+		:items-per-page-options="[5,10,25,50,100]"
+	>
+		<template v-slot:item.actions="{item}">
+			<div class="d-flex ga-2 justify-end">
+				<v-icon color="medium-emphasis" icon="mdi-pencil" size="small" @click="editar(item)"></v-icon>
+				<v-icon color="medium-emphasis" icon="mdi-delete" size="small" @click="deletar(item)"></v-icon>
+			</div>
+		</template>
+	</v-data-table-server>
+</v-container>
