@@ -10,10 +10,10 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Controller
 @RequestMapping("/perfil")
-@RolesAllowed("PERFIL")
+//@RolesAllowed("PERFIL")
 public class PerfilController {
 
-	@RolesAllowed("PERFIL_VISUALIZAR")
+//	@RolesAllowed("PERFIL_VISUALIZAR")
 	@GetMapping("/consultar")
 	public ModelAndView helloWorld(Model model) {
 		ModelAndView mv = new ModelAndView("perfil/index");

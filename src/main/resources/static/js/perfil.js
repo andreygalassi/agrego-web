@@ -30,19 +30,24 @@ const app = Vue.createApp({
 					editar: false,
 				},
 			},
-			listasInternas: {},
+			listasInternas: {
+				listaRecurso: [],
+				listaAcao: [],
+			},
 			headers: [
 				{ title: 'ID', key: 'id',align: 'left', sortable: true, },
 				{ title: 'Nome', key: 'nome', align: 'left', sortable: true, },
-				{ title: 'Email', key: 'email', align: 'left', sortable: true, },
-				{ title: 'Celular', key: 'celular', align: 'right', sortable: true, },
+				{ title: 'Role', key: 'listaRolesName', align: 'left', sortable: true, },
 				{ title: 'Ação', key: 'actions', align: 'end', sortable: false, width:5 },
 			],
 			api: {
 				principal: "../api/perfil",
 			},
 			consulta: {
-				filtro: {},
+				filtro: {
+					listaRecurso: [],
+					listaAcao: [],
+				},
 				resultado: [],
 			},
 			itemSelecionado: {
@@ -51,7 +56,26 @@ const app = Vue.createApp({
 		}
 	},
 	methods: {
-		carregaDominio() { },
+		carregaDominio() { 
+			this.$axios.get(this.api.principal+'/listaRecurso', {params: {}, headers:{}}).then(
+				(response) => {
+					this.listasInternas.listaRecurso = response.data;
+				}
+			).catch(
+				(error) => {
+					console.error('Erro:', error);
+				}
+			);
+			this.$axios.get(this.api.principal+'/listaAcao', {params: {}, headers:{}}).then(
+				(response) => {
+					this.listasInternas.listaAcao = response.data;
+				}
+			).catch(
+				(error) => {
+					console.error('Erro:', error);
+				}
+			);
+		},
 		updatePagination(options){
 			console.log(options);
 			this.config.pesquisa.pagination.size = options.itemsPerPage;
@@ -76,7 +100,6 @@ const app = Vue.createApp({
 		editar(item) {
 			this.limparItemSelecionado();
 			this.config.dialogItem.editar=true;
-//			this.itemSelecionado = structuredClone(item);
 			this.itemSelecionado = JSON.parse(JSON.stringify(item));
 			this.config.dialogItem.abrir=true; 
 		},
@@ -142,10 +165,6 @@ const app = Vue.createApp({
 		},
 		pesquisar() {
 			let headers = {};
-//			let headers = {
-//					'Authorization': 'Bearer MEU_TOKEN',
-//					'Content-Type': 'application/json'
-//				};
 			this.$axios.get(this.api.principal, {params: this.getFiltro(), headers:headers}).then(
 				(response) => {
 					this.config.table.pagination.totalItems = response.data.totalElements;

@@ -34,14 +34,14 @@ public class AutorEndpoint {
 	Logger LOGGER = LoggerFactory.getLogger(AutorEndpoint.class);
 	
 	@Autowired
-	AutorService autorService;
+	AutorService service;
 
 	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping
 	public ResponseEntity<Page<Autor>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute AutorFiltro filtro) {
 		try {
 			
-			Page<Autor> findAll = autorService.findByFiltro(page, filtro);
+			Page<Autor> findAll = service.findByFiltro(page, filtro);
 
 			if (findAll.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,7 +57,7 @@ public class AutorEndpoint {
 	@RolesAllowed("AUTOR_PESQUISAR")
 	@GetMapping("/{id}")
 	public ResponseEntity<Autor> getById(@PathVariable("id") long id) {
-		Optional<Autor> autor = autorService.findById(id);
+		Optional<Autor> autor = service.findById(id);
 
 		if (autor.isPresent()) {
 			return new ResponseEntity<>(autor.get(), HttpStatus.OK);
@@ -68,9 +68,9 @@ public class AutorEndpoint {
 
 	@RolesAllowed("AUTOR_CRIAR")
 	@PostMapping
-	public ResponseEntity<Autor> create(@RequestBody Autor autor) {
+	public ResponseEntity<Autor> create(@RequestBody Autor item) {
 		try {
-			Autor autorSalvo = autorService.save(autor);
+			Autor autorSalvo = service.save(item);
 			return new ResponseEntity<>(autorSalvo, HttpStatus.CREATED);
 		} catch (Exception e) {
 			LOGGER.error("ERRO", e);
@@ -80,13 +80,13 @@ public class AutorEndpoint {
 
 	@RolesAllowed("AUTOR_ALTERAR")
 	@PutMapping("/{id}")
-	public ResponseEntity<Autor> update(@PathVariable("id") long id, @RequestBody Autor autor) {
-		Optional<Autor> oBean = autorService.findById(id);
+	public ResponseEntity<Autor> update(@PathVariable("id") long id, @RequestBody Autor item) {
+		Optional<Autor> oBean = service.findById(id);
 
 		if (oBean.isPresent()) {
 			Autor bean = oBean.get(); 
-			BeanUtils.copyProperties(autor, bean, "id");
-			return new ResponseEntity<>(autorService.save(bean), HttpStatus.OK);
+			BeanUtils.copyProperties(item, bean, "id");
+			return new ResponseEntity<>(service.save(bean), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -96,7 +96,7 @@ public class AutorEndpoint {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
 		try {
-			autorService.deleteById(id);
+			service.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			LOGGER.error("ERRO", e);
@@ -108,7 +108,7 @@ public class AutorEndpoint {
 	@DeleteMapping
 	public ResponseEntity<HttpStatus> deleteAll() {
 		try {
-			autorService.deleteAll();
+			service.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			LOGGER.error("ERRO", e);

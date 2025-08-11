@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.agrego.model.enuns.EnumAcao;
 import br.com.agrego.model.enuns.EnumRecurso;
 import jakarta.persistence.CascadeType;
@@ -27,6 +29,7 @@ public class Perfil {
 	
 	private String nome;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Acesso> listaAcesso;
 

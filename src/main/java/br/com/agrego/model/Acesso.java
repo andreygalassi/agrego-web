@@ -2,6 +2,8 @@ package br.com.agrego.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.agrego.model.enuns.EnumAcao;
 import br.com.agrego.model.enuns.EnumRecurso;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ public class Acesso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "perfil_id")
 	private Perfil perfil;

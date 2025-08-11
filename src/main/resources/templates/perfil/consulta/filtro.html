@@ -3,8 +3,23 @@
 		<v-row>
 			<v-col cols="2"><v-text-field v-model="consulta.filtro.id" density="compact" label="Id" placeholder="Id" variant="outlined" clearable /></v-col>
 			<v-col cols="2"><v-text-field v-model="consulta.filtro.nome" density="compact" label="Nome" placeholder="Nome" variant="outlined" clearable /></v-col>
-			<v-col cols="2"><v-text-field v-model="consulta.filtro.email" density="compact" label="E-Mail" placeholder="E-Mail" variant="outlined" clearable /></v-col>
-			<v-col cols="2"><v-text-field v-model="consulta.filtro.celular" density="compact" label="Celular" placeholder="Celular" variant="outlined" clearable v-mask="'(##) #####-####'" /></v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="4">
+				<v-combobox label="Resurso" density="compact" variant="outlined" chips closable-chips multiple clearable
+					v-model="consulta.filtro.listaRecurso" 
+					:items="listasInternas.listaRecurso"
+				/>
+			</v-col>
+			<v-col cols="4">
+				<v-combobox label="Acao" density="compact" variant="outlined" chips closable-chips multiple clearable
+					v-model="consulta.filtro.listaAcao" 
+					:items="listasInternas.listaAcao" 
+					item-title="nome"
+					item-value="id"
+					return-object
+				/>
+			</v-col>
 		</v-row>
 	</v-container>
 	

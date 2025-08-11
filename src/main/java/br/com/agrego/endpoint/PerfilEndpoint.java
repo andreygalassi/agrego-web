@@ -1,5 +1,6 @@
 package br.com.agrego.endpoint;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -21,31 +22,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.agrego.model.Livro;
-import br.com.agrego.model.dto.LivroFiltro;
-import br.com.agrego.model.dto.LivroResponse;
-import br.com.agrego.service.LivroService;
+import br.com.agrego.model.Perfil;
+import br.com.agrego.model.dto.PerfilFiltro;
+import br.com.agrego.model.enuns.EnumAcao;
+import br.com.agrego.model.enuns.EnumRecurso;
+import br.com.agrego.service.PerfilService;
 import jakarta.annotation.security.RolesAllowed;
 
 //@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api/livro")
-@RolesAllowed("LIVRO")
-public class LivroEndpoint {
-	Logger LOGGER = LoggerFactory.getLogger(LivroEndpoint.class);
+@RequestMapping("/api/perfil")
+@RolesAllowed("PERFIL")
+public class PerfilEndpoint {
+	Logger LOGGER = LoggerFactory.getLogger(PerfilEndpoint.class);
 	
 	@Autowired
-	LivroService service;
+	PerfilService service;
 
-	@RolesAllowed("LIVRO_PESQUISAR")
+	@RolesAllowed("PERFIL_PESQUISAR")
 	@GetMapping
-	public ResponseEntity<Page<LivroResponse>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute LivroFiltro filtro) {
+	public ResponseEntity<Page<Perfil>> findAll(@PageableDefault(size = 10) Pageable page, @ModelAttribute PerfilFiltro filtro) {
 		try {
 			
-			Page<LivroResponse> findAll = service.findByFiltro(page, filtro).map(LivroResponse::valueOf); ;
+			Page<Perfil> findAll = service.findByFiltro(page, filtro);
 
 			if (findAll.isEmpty()) {
-				return new ResponseEntity<>(findAll, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 
 			return new ResponseEntity<>(findAll, HttpStatus.OK);
@@ -55,37 +57,37 @@ public class LivroEndpoint {
 		}
 	}
 
-	@RolesAllowed("LIVRO_PESQUISAR")
+	@RolesAllowed("PERFIL_PESQUISAR")
 	@GetMapping("/{id}")
-	public ResponseEntity<Livro> getById(@PathVariable("id") long id) {
-		Optional<Livro> livro = service.findById(id);
+	public ResponseEntity<Perfil> getById(@PathVariable("id") long id) {
+		Optional<Perfil> autor = service.findById(id);
 
-		if (livro.isPresent()) {
-			return new ResponseEntity<>(livro.get(), HttpStatus.OK);
+		if (autor.isPresent()) {
+			return new ResponseEntity<>(autor.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@RolesAllowed("LIVRO_CRIAR")
+	@RolesAllowed("PERFIL_CRIAR")
 	@PostMapping
-	public ResponseEntity<Livro> create(@RequestBody Livro item) {
+	public ResponseEntity<Perfil> create(@RequestBody Perfil item) {
 		try {
-			Livro livroSalvo = service.save(item);
-			return new ResponseEntity<>(livroSalvo, HttpStatus.CREATED);
+			Perfil itemSalvo = service.save(item);
+			return new ResponseEntity<>(itemSalvo, HttpStatus.CREATED);
 		} catch (Exception e) {
 			LOGGER.error("ERRO", e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@RolesAllowed("LIVRO_ALTERAR")
+	@RolesAllowed("PERFIL_ALTERAR")
 	@PutMapping("/{id}")
-	public ResponseEntity<Livro> update(@PathVariable("id") long id, @RequestBody Livro item) {
-		Optional<Livro> oBean = service.findById(id);
+	public ResponseEntity<Perfil> update(@PathVariable("id") long id, @RequestBody Perfil item) {
+		Optional<Perfil> oBean = service.findById(id);
 
 		if (oBean.isPresent()) {
-			Livro bean = oBean.get(); 
+			Perfil bean = oBean.get(); 
 			BeanUtils.copyProperties(item, bean, "id");
 			return new ResponseEntity<>(service.save(bean), HttpStatus.OK);
 		} else {
@@ -93,7 +95,7 @@ public class LivroEndpoint {
 		}
 	}
 
-	@RolesAllowed("LIVRO_DELETAR")
+	@RolesAllowed("PERFIL_DELETAR")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id) {
 		try {
@@ -105,7 +107,7 @@ public class LivroEndpoint {
 		}
 	}
 
-	@RolesAllowed("LIVRO_DELETAR")
+	@RolesAllowed("PERFIL_DELETAR")
 	@DeleteMapping
 	public ResponseEntity<HttpStatus> deleteAll() {
 		try {
@@ -118,4 +120,39 @@ public class LivroEndpoint {
 
 	}
 
+	@RolesAllowed("PERFIL_PESQUISAR")
+	@GetMapping("/listaRecurso")
+	public ResponseEntity<List<EnumRecurso>> listaRecurso() {
+		try {
+			
+			List<EnumRecurso> lista = service.listaRecurso();
+
+			if (lista.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RolesAllowed("PERFIL_PESQUISAR")
+	@GetMapping("/listaAcao")
+	public ResponseEntity<List<EnumAcao>> listaAcao() {
+		try {
+			
+			List<EnumAcao> lista = service.listaAcao();
+					
+					if (lista.isEmpty()) {
+						return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+					}
+			
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("ERRO", e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
